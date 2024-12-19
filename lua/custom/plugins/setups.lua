@@ -1,18 +1,32 @@
-local Terminal = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new {
-  cmd = 'lazygit',
-  direction = 'float',
-  hidden = true,
-}
+local palette = require('nightfox.palette').load 'nightfox'
 
-function _lazygit_toggle()
-  lazygit:toggle()
-end
-vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true, desc = 'lazygit' })
 
+require("cyberdream").setup({
+    -- Enable transparent background
+    transparent = true,
+})
+
+-- fajfjwao
 require('hlchunk').setup {
   chunk = {
     enable = true,
+    priority = 15,
+    style = {
+      { fg = palette.white.dim },
+      { fg = palette.red.normal },
+    },
+    use_treesitter = true,
+    chars = {
+      horizontal_line = '─',
+      vertical_line = '│',
+      left_top = '╭',
+      left_bottom = '╰',
+      right_arrow = '>',
+    },
+    error_sign = true,
+    -- animation related
+    duration = 0,
+    delay = 0,
   },
   indent = {
     enable = true,
@@ -21,20 +35,20 @@ require('hlchunk').setup {
 
 require('gitsigns').setup {
   signs = {
-    add = { text = ' ▎' },
-    change = { text = ' ▎' },
-    delete = { text = ' ' },
-    topdelete = { text = ' ' },
-    changedelete = { text = '~' },
-    untracked = { text = '▎ ' },
+    add = { text = '│' },
+    change = { text = '│' },
+    delete = { text = '│' },
+    topdelete = { text = '-│' },
+    changedelete = { text = '-│' },
+    untracked = { text = '│' },
   },
   signs_staged = {
-    add = { text = ' ▎' },
-    change = { text = ' ▎' },
-    delete = { text = ' ' },
-    topdelete = { text = ' ' },
-    changedelete = { text = '~' },
-    untracked = { text = '▎ ' },
+    add = { text = '││' },
+    change = { text = '││' },
+    delete = { text = '││' },
+    topdelete = { text = '-││' },
+    changedelete = { text = '-││' },
+    untracked = { text = '││' },
   },
   on_attach = function(bufnr)
     local gitsigns = require 'gitsigns'
@@ -46,21 +60,21 @@ require('gitsigns').setup {
     end
 
     -- Navigation
-    map('n', ']c', function()
+    map('n', ']h', function()
       if vim.wo.diff then
-        vim.cmd.normal { ']c', bang = true }
+        vim.cmd.normal { ']h', bang = true }
       else
         gitsigns.nav_hunk 'next'
       end
-    end, { desc = 'Next [C]hange hunk' })
+    end, { desc = 'Next change [H]unk' })
 
-    map('n', '[c', function()
+    map('n', '[h', function()
       if vim.wo.diff then
-        vim.cmd.normal { '[c', bang = true }
+        vim.cmd.normal { '[h', bang = true }
       else
         gitsigns.nav_hunk 'prev'
       end
-    end, { desc = 'Previous [C]hange hunk' })
+    end, { desc = 'Previous change [H]unk' })
 
     -- Actions
     map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[S]tage hunk' })
@@ -92,6 +106,42 @@ require('gitsigns').setup {
 }
 
 local icon = {
+
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '                               ',
+  '-------------------------------',
+  '| $ git push origin master -f |',
+  '______________________,________',
+  '⠸⣷⣦⠤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⠀⠀⠀ ',
+  '⠀⠙⣿⡄⠈⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠔⠊⠉⣿⡿⠁⠀⠀⠀ ',
+  '⠀⠀⠈⠣⡀⠀⠀⠑⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠊⠁⠀⠀⣰⠟⠀⠀⠀⣀⣀ ',
+  '⠀⠀⠀⠀⠈⠢⣄⠀⡈⠒⠊⠉⠁⠀⠈⠉⠑⠚⠀⠀⣀⠔⢊⣠⠤⠒⠊⠉⠀⡜ ',
+  '⠀⠀⠀⠀⠀⠀⠀⡽⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠩⡔⠊⠁⠀⠀⠀⠀⠀⠀⠇ ',
+  '⠀⠀⠀⠀⠀⠀⢀⠇⠹⠿⠟⠀⠀⠤⠀⠀⠻⠿⠟⠀⣇⠀⠀⡀⠠⠄⠒⠊⠁⠀ ',
+  '⠀⠀⠀⠀⠀⠀⢸⣿⣿⡆⠀⠰⠤⠖⠦⠴⠀⢀⣶⣿⣿⠀⠙⢄⠀⠀⠀⠀⠀⠀ ',
+  '⠀⠀⠀⠀⠀⠀⠀⢸⠈⠓⠦⠀⣀⣀⣀⠀⡠⠴⠊⠹⡞⣁⠤⠒⠉⠀⠀⠀⠀⠀ ',
+  '⠀⠀⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⡌⠉⠉⡤⠀⠀⠀⠀⢻⠿⠆⠀⠀⠀⠀⠀⠀⠀ ',
+  '⠀⠀⠀⢶⣗⠧⡀⢳⠀⠀⠀⠀⢸⣀⣸⠀⠀⠀⢀⡜⠀⣸⢤⣶⠀⠀⠀⠀⠀⠀ ',
+  '⠀⠀⠀⠈⠻⣿⣦⣈⣧⡀⠀⠀⢸⣿⣿⠀⠀⢀⣼⡀⣨⣿⡿⠁⠀⠀⠀⠀⠀⠀ ',
+  '⠀⠀⠀⠀⠀⠈⠻⠿⠿⠓⠄⠤⠘⠉⠙⠤⢀⠾⠿⣿⠟⠋         ',
+}
+
+local icon2 = {
   '           -mh.                           h.    `Ndho               ',
   '           hmh+                          oNm.   oNdhh               ',
   '          `Nmhd`                        /NNmd  /NNhhd               ',
@@ -139,71 +189,12 @@ dashboard.section.header.val = icon
 dashboard.section.header.opts.hl = pick_color()
 dashboard.section.buttons.val = {
   dashboard.button('e', '  > New file', ':ene <BAR> startinsert <CR>'),
-  dashboard.button('x', '󰙅  > Open Neotree', ':Neotree toggle<CR>'),
+  dashboard.button('p', '󱠒  > Open project', ':Telescope projects<CR>'),
   dashboard.button('f', '󰈞  > Find file', ':Telescope find_files<CR>'),
   dashboard.button('r', '  > Recent', ':Telescope oldfiles<CR>'),
-  dashboard.button('s', '  > Settings', ':e $MYVIMRC<CR>'),
   dashboard.button('q', '  > Quit NVIM', ':qa<CR>'),
 }
 
 alpha.setup(dashboard.opts)
-
-require('satellite').setup {
-  current_only = false,
-  winblend = 50,
-  zindex = 40,
-  excluded_filetypes = {},
-  width = 2,
-  handlers = {
-    cursor = {
-      enable = true,
-      -- Supports any number of symbols
-      symbols = { '⎺', '⎻', '⎼', '⎽' }
-      -- symbols = { '⎻', '⎼' }
-      -- Highlights:
-      -- - SatelliteCursor (default links to NonText
-    },
-    search = {
-      enable = true,
-      -- Highlights:
-      -- - SatelliteSearch (default links to Search)
-      -- - SatelliteSearchCurrent (default links to SearchCurrent)
-    },
-    diagnostic = {
-      enable = true,
-      signs = {'-', '=', '≡'},
-      min_severity = vim.diagnostic.severity.HINT,
-      -- Highlights:
-      -- - SatelliteDiagnosticError (default links to DiagnosticError)
-      -- - SatelliteDiagnosticWarn (default links to DiagnosticWarn)
-      -- - SatelliteDiagnosticInfo (default links to DiagnosticInfo)
-      -- - SatelliteDiagnosticHint (default links to DiagnosticHint)
-    },
-    gitsigns = {
-      enable = true,
-      signs = { -- can only be a single character (multibyte is okay)
-        add = "│",
-        change = "│",
-        delete = "-",
-      },
-      -- Highlights:
-      -- SatelliteGitSignsAdd (default links to GitSignsAdd)
-      -- SatelliteGitSignsChange (default links to GitSignsChange)
-      -- SatelliteGitSignsDelete (default links to GitSignsDelete)
-    },
-    marks = {
-      enable = true,
-      show_builtins = false, -- shows the builtin marks like [ ] < >
-      key = 'm'
-      -- Highlights:
-      -- SatelliteMark (default links to Normal)
-    },
-    quickfix = {
-      signs = { '-', '=', '≡' },
-      -- Highlights:
-      -- SatelliteQuickfix (default links to WarningMsg)
-    }
-  },
-}
 
 return {}
