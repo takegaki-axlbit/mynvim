@@ -5,6 +5,7 @@
 --
 -- Set transparent background for FidgetTitle and FidgetTask
 vim.bo.fileformat = 'unix'
+vim.opt.shadafile = "NONE"
 
 local opt = vim.opt
 
@@ -134,30 +135,6 @@ local mode_map = {
 return {
   {
     'luukvbaal/statuscol.nvim',
-    config = function()
-      local builtin = require 'statuscol.builtin'
-      require('statuscol').setup {
-        bt_ignore = { 'terminal', 'nofile', 'ddu-ff', 'ddu-ff-filter' },
-
-        relculright = true,
-        segments = {
-          {
-            sign = { namespace = { 'diagnostic/signs' }, maxwidth = 1, auto = true },
-          },
-          {
-            sign = {
-              namespace = { 'gitsigns' },
-              maxwidth = 1,
-              colwidth = 1,
-            },
-          },
-          {
-            text = { builtin.lnumfunc },
-          },
-          { text = { ' │ ' } },
-        },
-      }
-    end,
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -321,23 +298,6 @@ return {
     end,
   },
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha',
-        transparent_background = true,
-        show_end_of_buffer = true,
-        integrations = {
-          fidget = true,
-        },
-      }
-      -- vim.cmd.colorscheme 'catppuccin'
-    end,
-  },
-  {
     'scottmckendry/cyberdream.nvim',
     lazy = false,
     priority = 1000,
@@ -432,5 +392,47 @@ return {
     'chrisgrieser/nvim-early-retirement',
     config = true,
     event = 'VeryLazy',
+  },
+  {
+    'petertriho/nvim-scrollbar',
+    config = function()
+      require('gitsigns').setup()
+      require('scrollbar.handlers.gitsigns').setup()
+    end,
+  },
+  {
+    'coffebar/neovim-project',
+    opts = {
+      projects = {
+        '~/hogehoge/*',
+        '~/adobe-addon/*',
+        '~/aws-addon/*',
+        '~/csp-addon/*',
+        '~/cybozu-addon/*',
+        '~/kdsp-addon/*',
+        '~/neic-addon/*',
+        '~/ot-addon/*',
+        '~/sony-payment-addon/*',
+      },
+      picker = {
+        type = 'telescope',
+      },
+      dashboard_mode = true,
+    },
+    init = function()
+      vim.opt.sessionoptions:append 'globals' -- save global variables
+    end,
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
+      { 'Shatur/neovim-session-manager' },
+    },
+    lazy = false,
+    priority = 100,
+  },
+  {
+    'marcussimonsen/let-it-snow.nvim',
+    cmd = 'LetItSnow', -- Wait with loading until command is run
+    opts = {},
   },
 }

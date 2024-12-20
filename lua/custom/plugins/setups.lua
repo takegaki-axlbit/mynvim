@@ -1,10 +1,32 @@
 local palette = require('nightfox.palette').load 'nightfox'
 
+local builtin = require 'statuscol.builtin'
+require('statuscol').setup {
+  bt_ignore = { 'terminal', 'nofile', 'ddu-ff', 'ddu-ff-filter' },
 
-require("cyberdream").setup({
-    -- Enable transparent background
-    transparent = true,
-})
+  relculright = true,
+  segments = {
+    {
+      sign = { namespace = { 'diagnostic/signs' }, maxwidth = 1, auto = true },
+    },
+    {
+      sign = {
+        namespace = { 'gitsigns' },
+        maxwidth = 1,
+        colwidth = 1,
+      },
+    },
+    {
+      text = { builtin.lnumfunc },
+    },
+    { text = { ' │ ' } },
+  },
+}
+
+require('cyberdream').setup {
+  -- Enable transparent background
+  transparent = true,
+}
 
 -- fajfjwao
 require('hlchunk').setup {

@@ -73,8 +73,12 @@ keymap.set("n", "<leader>wtt", function()
   vim.cmd("tabnew | terminal")
 end, { noremap = true, silent = true, desc = "in new [T]ab" })
 
+wk.add {
+  { '<leader>wx', group = '[X] mode' },
+}
 -- cellular-automation
-keymap.set('n', '<leader>wx', '<cmd>CellularAutomaton make_it_rain<CR>', { noremap = true, silent = true, desc = '[X]mode' })
+keymap.set('n', '<leader>wxr', '<cmd>CellularAutomaton make_it_rain<CR>', { noremap = true, silent = true, desc = '[R]ain' })
+keymap.set('n', '<leader>wxs', '<cmd>LetItSnow<CR>', { noremap = true, silent = true, desc = '[S]now' })
 
 -- winresize
 
@@ -102,3 +106,8 @@ submode.create('WinMove', {
     end)
   end,
 })
+
+-- nvim project
+keymap.set('n', '<leader>wp', ':NeovimProjectDiscover<CR>', { desc = '[P]rojects' })
+
+return {}
