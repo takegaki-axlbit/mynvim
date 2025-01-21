@@ -107,7 +107,4 @@ submode.create('WinMove', {
   end,
 })
 
--- nvim project
-keymap.set('n', '<leader>wp', ':NeovimProjectDiscover<CR>', { desc = '[P]rojects' })
-
 return {}

@@ -5,7 +5,7 @@
 --
 -- Set transparent background for FidgetTitle and FidgetTask
 vim.bo.fileformat = 'unix'
-vim.opt.shadafile = "NONE"
+vim.opt.shadafile = 'NONE'
 
 local opt = vim.opt
 
@@ -113,23 +113,23 @@ end
 vim.o.laststatus = 3
 
 local mode_map = {
-  ['NORMAL'] = ' 𝗡𝗢𝗥𝗠𝗔𝗟', -- Normal mode
-  ['MORE'] = ' 𝗠𝗢𝗥𝗘', -- More mode (pager-like mode)
-  ['CONFIRM'] = '  𝗖𝗢𝗡𝗙𝗜𝗥𝗠', -- Confirm mode (e.g., for certain prompts)
-  ['O-PENDING'] = ' 𝗢-𝗣𝗘𝗡𝗗𝗜𝗡𝗚', -- Operator-pending mode
-  ['V-REPLACE'] = '󰩷 𝗩-𝗥𝗘𝗣𝗟𝗔𝗖𝗘', -- Virtual replace mode
-  ['REPLACE'] = '󰩷 𝗥𝗘𝗣𝗟𝗔𝗖𝗘', -- Replace mode
-  ['VISUAL'] = '󰩷 𝗩𝗜𝗦𝗨𝗔𝗟', -- Visual mode
-  ['V-LINE'] = '󰩷 𝗩-𝗟𝗜𝗡𝗘', -- Visual line mode
-  ['V-BLOCK'] = '󰩷 𝗩-𝗕𝗟𝗢𝗖𝗞', -- Visual block mode
-  ['SELECT'] = '󰩷 𝗦𝗘𝗟𝗘𝗖𝗧', -- Select mode
-  ['S-LINE'] = '󰩷 𝗦-𝗟𝗜𝗡𝗘', -- Select line mode
-  ['S-BLOCK'] = '󰩷 𝗦-𝗕𝗟𝗢𝗖𝗞', -- Select block mode
-  ['INSERT'] = ' 𝗜𝗡𝗦𝗘𝗥𝗧', -- Insert mode
-  ['COMMAND'] = ' 𝗖𝗢𝗠𝗠𝗔𝗡𝗗', -- Command-line editing mode
-  ['EX'] = ' 𝗘𝗫', -- Ex mode (extended command-line mode)
-  ['SHELL'] = ' 𝗦𝗛𝗘𝗟𝗟', -- Shell mode
-  ['TERMINAL'] = ' 𝗧𝗘𝗥𝗠𝗜𝗡𝗔𝗟', -- Terminal mode
+  ['NORMAL'] = ' ', -- Normal mode
+  ['MORE'] = ' ', -- More mode (pager-like mode)
+  ['CONFIRM'] = ' ', -- Confirm mode (e.g., for certain prompts)
+  ['O-PENDING'] = ' ', -- Operator-pending mode
+  ['V-REPLACE'] = '󰩷 ', -- Virtual replace mode
+  ['REPLACE'] = '󰩷 ', -- Replace mode
+  ['VISUAL'] = '󰩷 ', -- Visual mode
+  ['V-LINE'] = '󰩷 ', -- Visual line mode
+  ['V-BLOCK'] = '󰩷 ', -- Visual block mode
+  ['SELECT'] = '󰩷 ', -- Select mode
+  ['S-LINE'] = '󰩷 ', -- Select line mode
+  ['S-BLOCK'] = '󰩷 ', -- Select block mode
+  ['INSERT'] = ' ', -- Insert mode
+  ['COMMAND'] = ' ', -- Command-line editing mode
+  ['EX'] = ' ', -- Ex mode (extended command-line mode)
+  ['SHELL'] = ' ', -- Shell mode
+  ['TERMINAL'] = ' ', -- Terminal mode
 }
 
 return {
@@ -389,46 +389,11 @@ return {
     lazy = true,
   },
   {
-    'chrisgrieser/nvim-early-retirement',
-    config = true,
-    event = 'VeryLazy',
-  },
-  {
     'petertriho/nvim-scrollbar',
     config = function()
       require('gitsigns').setup()
       require('scrollbar.handlers.gitsigns').setup()
     end,
-  },
-  {
-    'coffebar/neovim-project',
-    opts = {
-      projects = {
-        '~/hogehoge/*',
-        '~/adobe-addon/*',
-        '~/aws-addon/*',
-        '~/csp-addon/*',
-        '~/cybozu-addon/*',
-        '~/kdsp-addon/*',
-        '~/neic-addon/*',
-        '~/ot-addon/*',
-        '~/sony-payment-addon/*',
-      },
-      picker = {
-        type = 'telescope',
-      },
-      dashboard_mode = true,
-    },
-    init = function()
-      vim.opt.sessionoptions:append 'globals' -- save global variables
-    end,
-    dependencies = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-      { 'Shatur/neovim-session-manager' },
-    },
-    lazy = false,
-    priority = 100,
   },
   {
     'marcussimonsen/let-it-snow.nvim',
